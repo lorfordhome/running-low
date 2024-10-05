@@ -15,6 +15,8 @@ public class paper : MonoBehaviour
     public GameObject triangleRed, triangleGreen, triangleBlue;
     public GameObject squareRed, squareGreen, squareBlue;
     public GameObject circleRed, circleGreen, circleBlue;
+    public float startSpeed=0.5f;
+    public int currentSpeed;
 
     void PrintShape(stamp.colour col,stamp.shape shape)
     {
@@ -73,8 +75,15 @@ public class paper : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Awake()
     {
         
+    }
+    void Update()
+    {
+        Vector2 tempvector=transform.position;
+        tempvector.x += startSpeed * Time.deltaTime;
+        transform.position = tempvector;
+
     }
 }
