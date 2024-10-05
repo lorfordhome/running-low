@@ -31,6 +31,9 @@ public class stamp : MonoBehaviour
     public Sprite triangle;
     public Sprite square;
     public Sprite circle;
+    public Sprite redSprite, greenSprite, blueSprite, blankSprite;
+    public Sprite redTri, greenTri, blueTri;
+    public Sprite redCircle, greenCircle, blueCircle;
 
     public void changeColour(colour col)
     {
@@ -38,11 +41,38 @@ public class stamp : MonoBehaviour
         switch (col)
         {
             case colour.red:
-                this.GetComponent<SpriteRenderer>().color = Color.red; break;
+                switch (stampShape)
+                {
+                    case shape.circle:
+                        this.GetComponent<SpriteRenderer>().sprite = redCircle; break;
+                    case shape.triangle:
+                        this.GetComponent<SpriteRenderer>().sprite = redTri; break;
+                    case shape.square:
+                        this.GetComponent<SpriteRenderer>().sprite = redSprite; break;
+                }
+                break;
             case colour.green:
-                this.GetComponent<SpriteRenderer>().color = Color.green; break;
+                switch (stampShape)
+                {
+                    case shape.circle:
+                        this.GetComponent<SpriteRenderer>().sprite = greenCircle; break;
+                    case shape.triangle:
+                        this.GetComponent<SpriteRenderer>().sprite = greenTri; break;
+                    case shape.square:
+                        this.GetComponent<SpriteRenderer>().sprite = greenSprite; break;
+                }
+                break;
             case colour.blue:
-                this.GetComponent<SpriteRenderer>().color = Color.blue; break;
+                switch (stampShape)
+                {
+                    case shape.circle:
+                        this.GetComponent<SpriteRenderer>().sprite = blueCircle; break;
+                    case shape.triangle:
+                        this.GetComponent<SpriteRenderer>().sprite = blueTri; break;
+                    case shape.square:
+                        this.GetComponent<SpriteRenderer>().sprite = blueSprite; break;
+                }
+                break;
         }
     }
     public void changeShape(shape shape)

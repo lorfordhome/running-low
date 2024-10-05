@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Shapes : MonoBehaviour
+public class Shapes
 {
     public enum colour
     {
@@ -8,13 +8,13 @@ public class Shapes : MonoBehaviour
     }
     public enum shapeType
     {
-        circle, triangle, square
+        circle, square,triangle
     }
 
     public colour specColour;
     public shapeType specType;
 
-    private void Awake()
+    public void randomiseShape()
     {
         int col = Random.Range(1, 4);
         int typ = Random.Range(1, 4);

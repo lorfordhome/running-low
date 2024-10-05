@@ -53,12 +53,16 @@ PrefabInstance:
       value: TriangleRED Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7276835676686654060, guid: 30c4793ba55011147afcc9d08f81ee0a, type: 3}
+      propertyPath: m_Color.b
+      value: 0.1764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 7276835676686654060, guid: 30c4793ba55011147afcc9d08f81ee0a, type: 3}
       propertyPath: m_Color.g
-      value: 0.0806483
+      value: 0.15294118
       objectReference: {fileID: 0}
     - target: {fileID: 7276835676686654060, guid: 30c4793ba55011147afcc9d08f81ee0a, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.75686276
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

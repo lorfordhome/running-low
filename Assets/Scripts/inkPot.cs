@@ -19,6 +19,7 @@ public class inkPot : MonoBehaviour
    
     void Start()
     {
+        UnityEngine.Cursor.visible = false;
         stamp=FindObjectOfType<stamp>();
         fillAmount=fillMax;
         spriteRenderer= GetComponent<SpriteRenderer>();
@@ -61,5 +62,20 @@ public class inkPot : MonoBehaviour
             updateFill(false);
         }
 
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "stamp")
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (fillAmount > 0 && fillAmount != 0)
+                {
+                    stamp.changeColour((stamp.colour)inkColour);
+                    updateFill(false);
+                }
+            }
+        }
     }
 }

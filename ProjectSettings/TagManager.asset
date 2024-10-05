@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - inkPot
+  - stampShape
+  - paperSheet
+  - conveyorEND
+  - stamp
   layers:
   - Default
   - TransparentFX
@@ -38,6 +43,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: background
+    uniqueID: 742766829
+    locked: 0
+  - name: paper
+    uniqueID: 355473207
+    locked: 0
+  - name: printed ink
+    uniqueID: 3081746355
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: stamp
+    uniqueID: 4048068917
     locked: 0
