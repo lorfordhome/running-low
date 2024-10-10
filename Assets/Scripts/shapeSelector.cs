@@ -8,6 +8,7 @@ public class shapeSelector : MonoBehaviour
 
     public Shape shape;
     public stamp stamp;
+    private bool isInInk = false;
 
     void Start()
     {
@@ -17,10 +18,33 @@ public class shapeSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetMouseButtonDown(0)) { 
+            if (isInInk)
+            {
+                stamp.changeShape((stamp.shape)shape);
+            }
+        }
     }
-    void OnMouseDown()
+
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    Debug.Log("collision");
+    //    if (collision.transform.tag == "stamp")
+    //    {
+    //        Debug.Log("stamp col");
+    //        if (Input.GetMouseButtonDown(0))
+    //        {
+    //            Debug.Log("Change shaoe");
+    //            stamp.changeShape((stamp.shape)shape);
+    //        }
+    //    }
+    //}
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        stamp.changeShape((stamp.shape)shape);
+        isInInk = true;
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        isInInk = false;
     }
 }

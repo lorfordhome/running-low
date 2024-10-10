@@ -21,6 +21,8 @@ public class paper : MonoBehaviour
     public GameObject[] orderSpaces;
     public GameManager gameManager;
     Ordersheet ordersheet;
+    private bool isInInk = false;
+    public Vector3 printOffset= new Vector3( 0, 10f,0 );
 
     void PrintShape(stamp.colour col,stamp.shape shape)
     {
@@ -31,7 +33,7 @@ public class paper : MonoBehaviour
                 switch (col)
                 {
                     case stamp.colour.green:
-                        Instantiate(triangleGreen, Stamp.body.position,Quaternion.identity,this.transform);
+                        Instantiate(triangleGreen, Stamp.body.position, Quaternion.identity,this.transform);
                         newshape.specColour = Shapes.colour.green;
                         newshape.specType = Shapes.shapeType.triangle;
                         break;
@@ -91,18 +93,25 @@ public class paper : MonoBehaviour
         printedShapes.Add(newshape);
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "stamp")
+        if (collision.gameObject.tag == "conveyorEND")
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (Stamp.stampColour != stamp.colour.none)
-                {
-                    PrintShape(Stamp.stampColour, Stamp.stampShape);
-                }
-            }
+            ValidatePrint();
+            Destroy(ordersheet.gameObject);
+            Destroy(this.gameObject);
         }
+        if (collision.gameObject.tag == "stamp")
+        { isInInk = true;
+        }
+
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "stamp")
+            isInInk = false;
     }
 
     private void Awake()
@@ -116,20 +125,17 @@ public class paper : MonoBehaviour
     }
     void Update()
     {
+        if (Input.GetMouseButtonDown(0)&&isInInk)
+        {
+                if (Stamp.stampColour != stamp.colour.none)
+                {
+                    PrintShape(Stamp.stampColour, Stamp.stampShape);
+                }
+        }
         Vector2 tempvector=transform.position;
         tempvector.x += startSpeed * Time.deltaTime;
         transform.position = tempvector;
 
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("Paper Collision");
-        if (collision.gameObject.tag == "conveyorEND")
-        {
-            ValidatePrint();
-            Destroy(ordersheet.gameObject);
-            Destroy(this.gameObject);
-        }
     }
     private void ValidatePrint()
     {
@@ -139,18 +145,18 @@ public class paper : MonoBehaviour
         }
         else
         {
-            int correctShapes = 0;
-            for (int i = 0; i < ordersheet.shapes.Count; i++)
-            {
+            ordersheet.shapes.Sort();
+            printedShapes.Sort();
+            bool correctShapes = true;
                 for (int j=0;j < printedShapes.Count; j++)
                 {
-                    if ((printedShapes[j].specColour == ordersheet.shapes[i].specColour) && (printedShapes[j].specType == ordersheet.shapes[i].specType))
-                    { correctShapes++;
+                    if (printedShapes[j].CompareTo(ordersheet.shapes[j])!=0)
+                    {
+                    correctShapes = false;
                       break;
                     }
                 }
-            }
-            if (correctShapes == ordersheet.shapes.Count)
+            if (correctShapes)
                 WinCheck();
             else
                 FailCheck();

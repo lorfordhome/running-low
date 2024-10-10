@@ -78,6 +78,7 @@ public class stamp : MonoBehaviour
     public void changeShape(shape shape)
     {
         stampShape = shape;
+        stampColour = colour.none;
         switch (shape)
         {
             case shape.circle:
@@ -102,7 +103,7 @@ public class stamp : MonoBehaviour
 
     void Start()
     {
-        body=this.GetComponent<Rigidbody2D>();
+        body = this.GetComponent<Rigidbody2D>();
     }
 
     void Update()

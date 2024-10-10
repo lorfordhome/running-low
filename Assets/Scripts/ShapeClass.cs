@@ -1,7 +1,22 @@
+using System;
 using UnityEngine;
 
-public class Shapes
+public class Shapes : IComparable
 {
+    public int CompareTo(Shapes shape)
+    {
+        if ((shape.specColour == this.specColour) && (shape.specType == this.specType))
+            return 0;
+        else
+            return 1;
+    }
+    public int CompareTo(object obj)
+    {
+        if (obj!.GetType() != typeof(Shapes))
+            return 1;
+        else
+            return 0;
+    }
     public enum colour
     {
         red, green, blue
@@ -16,8 +31,8 @@ public class Shapes
 
     public void randomiseShape()
     {
-        int col = Random.Range(1, 4);
-        int typ = Random.Range(1, 4);
+        int col = UnityEngine.Random.Range(1, 4);
+        int typ = UnityEngine.Random.Range(1, 4);
 
         setColour(col);
         setType(typ);

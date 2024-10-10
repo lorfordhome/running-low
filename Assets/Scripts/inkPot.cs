@@ -14,9 +14,10 @@ public class inkPot : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public GameObject fillMeter;
     public Sprite[] meterSprites;
+    private bool isInInk = false;
 
 
-   
+
     void Start()
     {
         UnityEngine.Cursor.visible = false;
@@ -52,30 +53,21 @@ public class inkPot : MonoBehaviour
 
     void Update()
     {
-
-    }
-    void OnMouseDown()
-    {
-        if (fillAmount > 0 && fillAmount!=0) 
+        if (Input.GetMouseButtonDown(0)&&isInInk)
         {
-            stamp.changeColour((stamp.colour)inkColour);
-            updateFill(false);
-        }
-
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.transform.tag == "stamp")
-        {
-            if (Input.GetMouseButtonDown(0))
+            if (fillAmount > 0)
             {
-                if (fillAmount > 0 && fillAmount != 0)
-                {
-                    stamp.changeColour((stamp.colour)inkColour);
-                    updateFill(false);
-                }
+                stamp.changeColour((stamp.colour)inkColour);
+                updateFill(false);
             }
         }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        isInInk = true;
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        isInInk = false;
     }
 }
