@@ -9,10 +9,12 @@ public class shapeSelector : MonoBehaviour
     public Shape shape;
     public stamp stamp;
     private bool isInInk = false;
+    public AudioSource SFX;
 
     void Start()
     {
         stamp = FindObjectOfType<stamp>();
+        SFX = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -21,6 +23,7 @@ public class shapeSelector : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) { 
             if (isInInk)
             {
+                SFX.Play();
                 stamp.changeShape((stamp.shape)shape);
             }
         }

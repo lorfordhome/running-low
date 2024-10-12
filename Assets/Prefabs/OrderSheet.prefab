@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 965559371780120383}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.14, y: -0.46, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.543081}
+  m_LocalPosition: {x: -1.77, y: 0.09, z: 0}
+  m_LocalScale: {x: 1.15, y: 1.15, z: 1.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9041042183054732369}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -246898379
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -110,9 +110,9 @@ Transform:
   m_GameObject: {fileID: 2186959737204004187}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.73, y: -0.46, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -0.23, y: 0.09, z: 0}
+  m_LocalScale: {x: 1.15, y: 1.15, z: 1.15}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9041042183054732369}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -194,8 +194,8 @@ Transform:
   m_GameObject: {fileID: 4012620860819678642}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.74, y: -0.46, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.33333334}
+  m_LocalPosition: {x: 1.26, y: 0.09, z: 0}
+  m_LocalScale: {x: 1.15, y: 1.15, z: 1.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9041042183054732369}
@@ -241,7 +241,7 @@ SpriteRenderer:
   m_SortingLayerID: -246898379
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -356,7 +356,6 @@ MonoBehaviour:
   - {fileID: 965559371780120383}
   - {fileID: 2186959737204004187}
   - {fileID: 4012620860819678642}
-  shapePrefab: {fileID: 1064526923921575693, guid: 367e5392d896a814aba3468d4e93bc4f, type: 3}
   triangleRed: {fileID: 7616240419597671369, guid: 4ba94e6afc58ec24a9c3f2b739744059, type: 3}
   triangleGreen: {fileID: 622592660331842988, guid: 30c4793ba55011147afcc9d08f81ee0a, type: 3}
   triangleBlue: {fileID: 5823361910705083253, guid: fafc1d6241a6574408c39764002e3fa9, type: 3}

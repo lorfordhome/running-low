@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -7,25 +8,24 @@ using UnityEngine;
 public class paper : MonoBehaviour
 {
     public stamp Stamp;
-    void Start()
-    {
-        Stamp=FindObjectOfType<stamp>();
-    }
     public List<Shapes> printedShapes = new List<Shapes>();
     public GameObject triangleRed, triangleGreen, triangleBlue;
     public GameObject squareRed, squareGreen, squareBlue;
     public GameObject circleRed, circleGreen, circleBlue;
     public float startSpeed=2f;
-    public int currentSpeed;
+    public float currentSpeed;
     public GameObject orderPrefab;
     public GameObject[] orderSpaces;
     public GameManager gameManager;
     Ordersheet ordersheet;
+    List<Ordersheet> orders = new List<Ordersheet> ();
     private bool isInInk = false;
     public Vector3 printOffset= new Vector3( 0, 10f,0 );
+    public AudioSource printSFX;
 
     void PrintShape(stamp.colour col,stamp.shape shape)
     {
+        printSFX.Play();
         Shapes newshape = new Shapes();
         switch (shape)
         {
@@ -100,7 +100,7 @@ public class paper : MonoBehaviour
         if (collision.gameObject.tag == "conveyorEND")
         {
             ValidatePrint();
-            Destroy(ordersheet.gameObject);
+            orders.Remove(ordersheet);
             Destroy(this.gameObject);
         }
         if (collision.gameObject.tag == "stamp")
@@ -114,14 +114,20 @@ public class paper : MonoBehaviour
             isInInk = false;
     }
 
-    private void Awake()
+    void Start()
     {
-        gameManager=FindObjectOfType<GameManager>();
+        Stamp = FindObjectOfType<stamp>();
+        gameManager = FindObjectOfType<GameManager>();
         ordersheet = gameManager.CheckOrderSpaces();
         if (ordersheet == null)
         {
             Destroy(this.gameObject);
         }
+        else
+        {
+            orders.Add(ordersheet);
+        }
+        currentSpeed = startSpeed * gameManager.gameSpeed;
     }
     void Update()
     {
@@ -133,42 +139,46 @@ public class paper : MonoBehaviour
                 }
         }
         Vector2 tempvector=transform.position;
-        tempvector.x += startSpeed * Time.deltaTime;
+        tempvector.x += currentSpeed * Time.deltaTime;
         transform.position = tempvector;
 
     }
     private void ValidatePrint()
     {
-        if (ordersheet.shapes.Count != printedShapes.Count)
-        {
-            FailCheck();
-        }
-        else
-        {
-            ordersheet.shapes.Sort();
-            printedShapes.Sort();
-            bool correctShapes = true;
-                for (int j=0;j < printedShapes.Count; j++)
+        bool correctShapes = false;
+        int associatedOrder = 0;
+            for (int i = 0; i < orders.Count; i++)
+            {
+
+                if (orders[i].shapes.Count != printedShapes.Count)
                 {
-                    if (printedShapes[j].CompareTo(ordersheet.shapes[j])!=0)
-                    {
                     correctShapes = false;
-                      break;
+                }
+                else
+                {
+                    orders[i].shapes.Sort();
+                    printedShapes.Sort();
+                    for (int j = 0; j < printedShapes.Count; j++)
+                    {
+                        if (printedShapes[j].CompareTo(orders[i].shapes[j]) == 0)
+                        {
+                            correctShapes = true;
+                            associatedOrder = i;
+                            break;
+                        }
+                    if (correctShapes)
+                        break;
                     }
                 }
-            if (correctShapes)
-                WinCheck();
-            else
-                FailCheck();
+            }
+        if (correctShapes)
+        { 
+            gameManager.Success();
+            Destroy(orders[associatedOrder].gameObject);
+            orders.Remove(orders[associatedOrder]);
         }
-    }
-    private void FailCheck()
-    {
-        Debug.Log("FAIL");
-    }
-    private void WinCheck()
-    {
-        Debug.Log("WIN");
+        else
+            gameManager.Fail();
     }
 
 }

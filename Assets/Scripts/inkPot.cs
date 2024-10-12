@@ -15,12 +15,13 @@ public class inkPot : MonoBehaviour
     public GameObject fillMeter;
     public Sprite[] meterSprites;
     private bool isInInk = false;
+    public AudioSource SFX;
 
 
 
     void Start()
     {
-        UnityEngine.Cursor.visible = false;
+        SFX = GetComponent<AudioSource>();
         stamp=FindObjectOfType<stamp>();
         fillAmount=fillMax;
         spriteRenderer= GetComponent<SpriteRenderer>();
@@ -57,6 +58,7 @@ public class inkPot : MonoBehaviour
         {
             if (fillAmount > 0)
             {
+                SFX.Play();
                 stamp.changeColour((stamp.colour)inkColour);
                 updateFill(false);
             }
