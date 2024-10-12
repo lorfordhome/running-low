@@ -58,7 +58,10 @@ public class GameManager : MonoBehaviour
     {
         playTimer = 0;
         gameSpeed += 0.2f;
-        timeBetweenOrders/= gameSpeed;
+        if (timeBetweenOrders > 4)
+            timeBetweenOrders /= gameSpeed;
+        else
+            timeBetweenOrders = 4;
     }
     public Ordersheet CheckOrderSpaces()
     {
@@ -105,6 +108,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("GAME OVER");
+            UnityEngine.Cursor.visible = true;
             SceneManager.LoadScene("GameOver");
         }
     }  
